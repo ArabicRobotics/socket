@@ -5,68 +5,7 @@ from _thread import *
 from threading import Thread
 from xmlrpc.client import Server
 import time
-
-class Connection(object):
-	def __init__(self):
-		"""This initilization for 
-		""" 
-		try:
-			self.isConnected = False
-			self.isTirmenated = False
-			self.connection = None
-			self.connectionThread =  Thread(target=self.client_handler)
-			self.connectionThread.daemon=  True # first
-			return
-		except Exception as e:
-			print (e)
-			return
-	def start(self):
-		"""This initilization for 
-		""" 
-		try:
-			self.isConnected = True
-			self.connectionThread.start()
-			return
-		except Exception as e:
-			print (e)
-			return
-	def stop(self):
-		try:
-			self.isConnected = False
-			self.connection.close()
-			self.isTirmenated =True
-			time.sleep(0.3)
-			Server.removeConnection(self)
-			print("Connection closed successfully")
-			#print("Connection stopped Closed!") 
-			return 
-		except Exception as e:
-			self.isConnected =False
-			print("Connection stop error")
-			print (e)
-			return
-
-	def client_handler(self):
-		try:
-			self.connection.send(str.encode('You are now connected to the replay server... Type BYE to stop'))
-			while True:
-				if self.isTirmenated:
-					self.stop();
-					return
-				data = self.connection.recv(2048)
-				message = data.decode('utf-8')
-				if  '__B__' in  message:
-					self.stop()
-				reply = f'Server: {message}'
-				self.connection.sendall(str.encode(reply))
-		except BrokenPipeError:
-			print ("Broken pip Error Catch")
-			self.stop()
-		except Exception as e:
-			print("Connection handeller error")
-			self.stop()
-			print (e)
-			return
+from clsConnection import Connection
 
 class Server(object):
 	handlers = []	
@@ -93,6 +32,7 @@ class Server(object):
 			connectionHandeller = Connection()
 			connectionHandeller.connection = Client
 			connectionHandeller.start()
+			
 			Server.handlers.append(connectionHandeller)
 			print (str("Connection accepted successfully"))
 			return
