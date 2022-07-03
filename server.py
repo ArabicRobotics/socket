@@ -78,6 +78,7 @@ class Server(object):
 			self.port = 1233
 			self.isTirmenated= None
 			self.threadServer = Thread(target=self._start)
+			self.isRunning = False
 			return
 		except Exception as e:
 			print (e)
@@ -151,7 +152,7 @@ class Server(object):
 		try:
 			print(f'Server is listing on the port {self.port}...')
 			self.ServerSocket.listen()
-		    
+			self.isRunning = True		    
 			while True:
 				self.accept_connections()
 				if self.isTirmenated:
