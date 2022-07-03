@@ -186,19 +186,36 @@ def print_no_newline(string):
 
 
 server = Server()
-timeout=13
+timeout=15
 server.start()
-time.sleep(timeout)
-Server.getStatus()
 
+
+
+print ("printing status:")
 Server.getStatus()
 time.sleep(timeout)
+print ("printing status:")
 Server.getStatus()
 time.sleep(timeout)
+print ("printing status:")
+Server.getStatus()
+print ("---- working .... half way ")
+time.sleep(timeout)
+print ("printing status:")
 Server.getStatus()
 time.sleep(timeout)
+print ("printing status:")
+Server.getStatus()
+time.sleep(timeout)
+print ("printing status:")
+Server.getStatus()
+time.sleep(timeout)
+
+
+
+
 '''
-server.shutDown()
+#server.shutDown()
 '''
 print ("Finished............ ")
 
