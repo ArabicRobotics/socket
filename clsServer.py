@@ -62,9 +62,10 @@ class Server(object):
 			for i in range(len(Server.handlers)):
 				cConnection = Server.handlers[i]
 				if cConnection.isConnected:
+					cConnection.connection.shutdown(socket.SHUT_RDWR)
 					cConnection.connection.close()
 			print("server socket closing...")
-			self.ServerSocket.shutdown(1)
+			self.ServerSocket.shutdown(socket.SHUT_RDWR)
 			print ("threading join")
 			self.isTirmenated=True 
 			self.ServerSocket.close()

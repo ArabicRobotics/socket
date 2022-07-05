@@ -33,6 +33,7 @@ class Connection(object):
 	def stop(self):
 		try:
 			self.isConnected = False
+			self.connection.shutdown(socket.SHUT_RDWR)
 			self.connection.close()
 			self.isTirmenated =True
 			time.sleep(0.3)
@@ -85,8 +86,11 @@ class Connection(object):
 	def read(self,data):
 		try:
 			print ("read :"+ str(data))
+			
 			if  '__B__' in  data:
 				self.stop()
+			if '__status__' in data:
+				self.send("Connected")
 			return
 		except Exception as e:
 			print("Error in read ")

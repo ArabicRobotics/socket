@@ -76,9 +76,9 @@ class Client(object):
 			while True:
 				self.Response = None
 
-				self.Response = self.ClientSocket.recv(1024)
-				self.Response.decode('utf-8')
+				self.Response = self.ClientSocket.recv(1024)				
 				if self.Response != None:
+					self.Response = self.Response.decode('utf-8')
 					self.newData = True
 					self.lastRead = self.Response
 				if self.isTirmenated:
